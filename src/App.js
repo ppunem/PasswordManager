@@ -196,7 +196,7 @@ class App extends Component {
               className="sp"
               type="checkbox"
               id="showPassword"
-              onClick={this.toggleClickStatus}
+              onChange={this.toggleClickStatus}
             />
             <label htmlFor="showPassword" onClick={this.toggleClickStatus}>
               Show Passwords
