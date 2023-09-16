@@ -26,7 +26,7 @@ class App extends Component {
       websiteName: website,
       userName: username,
       Password: password,
-      isAddClicked: false,
+      isClicked: false,
       letterClassName: letterContainerStyling,
     }
 
@@ -52,26 +52,17 @@ class App extends Component {
   }
 
   toggleClickStatus = () => {
-    const {isClicked} = this.state
-
-    if (isClicked) {
-      this.setState({
-        passWord: `${(
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/password-manager-stars-img.png"
-            alt="stars"
-          />
-        )}`,
-      })
-    } else {
-      this.setState(prevState => ({passWord: prevState.passWord}))
-    }
-
     this.setState(prevState => ({isClicked: !prevState.isClicked}))
   }
 
-  renderNewComment = () => {
+  removeComment = Id => {
     const {newPasswordList} = this.state
+    const filteredPasswords = newPasswordList.filter(each => each.id !== Id)
+    this.setState({newPasswordList: filteredPasswords})
+  }
+
+  renderNewComment = () => {
+    const {newPasswordList, isClicked} = this.state
 
     return newPasswordList.map(eachPassword => (
       <div className="container">
@@ -81,13 +72,28 @@ class App extends Component {
         <div className="details-container">
           <p className="details-styling">{eachPassword.websiteName}</p>
           <p className="details-styling">{eachPassword.userName}</p>
-          <p className="details-styling">{eachPassword.Password}</p>
+          <p className="details-styling">
+            {isClicked ? (
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/password-manager-stars-img.png "
+                alt="stars"
+              />
+            ) : (
+              eachPassword.Password
+            )}
+          </p>
         </div>
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/password-manager-delete-img.png"
-          alt="delete"
-          className="delete"
-        />
+        <button
+          type="button"
+          className="del-btn"
+          onClick={this.removeComment(eachPassword.id)}
+        >
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/password-manager-delete-img.png"
+            alt="delete"
+            className="del-image"
+          />
+        </button>
       </div>
     ))
   }
@@ -202,14 +208,17 @@ class App extends Component {
               Show Passwords
             </label>
           </div>
-          {LENGTH > 0
-            ? `${(<ul>{this.renderNewComment()}</ul>)}`
-            : `${(
-                <img
-                  src="https://assets.ccbp.in/frontend/react-js/no-passwords-img.png"
-                  alt="no passwords"
-                />
-              )}`}
+          {LENGTH > 0 ? (
+            <ul>{this.renderNewComment()}</ul>
+          ) : (
+            <div className="no-password-image-container">
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/no-passwords-img.png"
+                alt="no passwords"
+                className="no-password-image"
+              />
+            </div>
+          )}
         </div>
       </div>
     )

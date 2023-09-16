@@ -200,6 +200,21 @@ ul {
   color: #f8fafc;
   font-size: 14px;
 }
-.delete {
+.del-btn {
+  background-color: transparent;
+  border: none;
+  height: 50px;
+  margin-top: 30px;
+}
+.del-image {
   height: 30px;
+}
+.no-password-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.no-password-image {
+  height: 200px;
+  width: 200px;
 }
