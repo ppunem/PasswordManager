@@ -11,7 +11,6 @@ class App extends Component {
     website: '',
     password: '',
     isClicked: false,
-    count: 0,
   }
 
   addNewPassword = event => {
@@ -35,7 +34,6 @@ class App extends Component {
       website: '',
       username: '',
       password: '',
-      count: prevState.count + 1,
     }))
   }
 
@@ -75,6 +73,7 @@ class App extends Component {
           <p className="details-styling">
             {isClicked ? (
               <img
+                className="stars-image"
                 src="https://assets.ccbp.in/frontend/react-js/password-manager-stars-img.png "
                 alt="stars"
               />
@@ -86,7 +85,7 @@ class App extends Component {
         <button
           type="button"
           className="del-btn"
-          onClick={this.removeComment(eachPassword.id)}
+          onClick={() => this.removeComment(eachPassword.id)}
         >
           <img
             src="https://assets.ccbp.in/frontend/react-js/password-manager-delete-img.png"
@@ -104,11 +103,11 @@ class App extends Component {
     const filteredList = newPasswordList.filter(each =>
       each.userName.toLowerCase().includes(event.target.value.toLowerCase()),
     )
-    this.setState({count: filteredList.length, newPasswordList: filteredList})
+    this.setState({newPasswordList: filteredList})
   }
 
   render() {
-    const {newPasswordList, count} = this.state
+    const {newPasswordList} = this.state
     const LENGTH = newPasswordList.length
 
     return (
@@ -118,107 +117,109 @@ class App extends Component {
           src="https://assets.ccbp.in/frontend/react-js/password-manager-logo-img.png"
           alt="app logo"
         />
-        <div className="top-container">
-          <form onSubmit={this.addNewPassword}>
-            <h1 className="form-head">Add New Password</h1>
-            <div className="logo-input-container">
-              <div className="image-container">
-                <img
-                  className="inputImage"
-                  src="https://assets.ccbp.in/frontend/react-js/password-manager-website-img.png"
-                  alt="website"
+        <div className="inner-container">
+          <div className="top-container">
+            <form onSubmit={this.addNewPassword}>
+              <h1 className="form-head">Add New Password</h1>
+              <div className="logo-input-container">
+                <div className="image-container">
+                  <img
+                    className="inputImage"
+                    src="https://assets.ccbp.in/frontend/react-js/password-manager-website-img.png"
+                    alt="website"
+                  />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Enter Website"
+                  onChange={this.changeWebsiteName}
                 />
               </div>
-              <input
-                type="text"
-                placeholder="Enter Website"
-                onChange={this.changeWebsiteName}
-              />
-            </div>
-            <div className="logo-input-container">
-              <div className="image-container">
-                <img
-                  className="inputImage"
-                  src="https://assets.ccbp.in/frontend/react-js/password-manager-username-img.png"
-                  alt="username"
+              <div className="logo-input-container">
+                <div className="image-container">
+                  <img
+                    className="inputImage"
+                    src="https://assets.ccbp.in/frontend/react-js/password-manager-username-img.png"
+                    alt="username"
+                  />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Enter Username"
+                  onChange={this.changeUsername}
                 />
               </div>
-              <input
-                type="text"
-                placeholder="Enter Username"
-                onChange={this.changeUsername}
-              />
-            </div>
-            <div className="logo-input-container">
-              <div className="image-container">
-                <img
-                  className="inputImage"
-                  src="https://assets.ccbp.in/frontend/react-js/password-manager-password-img.png"
-                  alt="password"
+              <div className="logo-input-container">
+                <div className="image-container">
+                  <img
+                    className="inputImage"
+                    src="https://assets.ccbp.in/frontend/react-js/password-manager-password-img.png"
+                    alt="password"
+                  />
+                </div>
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  onChange={this.changePassword}
                 />
               </div>
-              <input
-                type="password"
-                placeholder="Enter Password"
-                onChange={this.changePassword}
-              />
-            </div>
-            <div className="button-container">
-              <button type="submit">Add</button>
-            </div>
-          </form>
-          <img
-            className="password-manager-image"
-            src="https://assets.ccbp.in/frontend/react-js/password-manager-lg-img.png"
-            alt="password manager"
-          />
-        </div>
-
-        <div className="bottom-container">
-          <div className="count-search-container">
-            <div className="text-count">
-              <h1 className="count-head">Your Passwords</h1>
-              <p className="count-container">{count}</p>
-            </div>
-            <div className="logo-search-container">
-              <div className="image-container">
-                <img
-                  className="searchImage"
-                  src="https://assets.ccbp.in/frontend/react-js/password-manager-search-img.png"
-                  alt="search"
-                />
+              <div className="button-container">
+                <button type="submit">Add</button>
               </div>
-              <input
-                className="search"
-                type="search"
-                placeholder="Search"
-                onChange={this.filterPasswords}
-              />
-            </div>
-          </div>
-          <hr />
-          <div className="showPassword-container">
-            <input
-              className="sp"
-              type="checkbox"
-              id="showPassword"
-              onChange={this.toggleClickStatus}
+            </form>
+            <img
+              className="password-manager-image"
+              src="https://assets.ccbp.in/frontend/react-js/password-manager-lg-img.png"
+              alt="password manager"
             />
-            <label htmlFor="showPassword" onClick={this.toggleClickStatus}>
-              Show Passwords
-            </label>
           </div>
-          {LENGTH > 0 ? (
-            <ul>{this.renderNewComment()}</ul>
-          ) : (
-            <div className="no-password-image-container">
-              <img
-                src="https://assets.ccbp.in/frontend/react-js/no-passwords-img.png"
-                alt="no passwords"
-                className="no-password-image"
-              />
+
+          <div className="bottom-container">
+            <div className="count-search-container">
+              <div className="text-count">
+                <h1 className="count-head">Your Passwords</h1>
+                <p className="count-container">{newPasswordList.length}</p>
+              </div>
+              <div className="logo-search-container">
+                <div className="image-container">
+                  <img
+                    className="searchImage"
+                    src="https://assets.ccbp.in/frontend/react-js/password-manager-search-img.png"
+                    alt="search"
+                  />
+                </div>
+                <input
+                  className="search"
+                  type="search"
+                  placeholder="Search"
+                  onChange={this.filterPasswords}
+                />
+              </div>
             </div>
-          )}
+            <hr />
+            <div className="showPassword-container">
+              <input
+                className="sp"
+                type="checkbox"
+                id="showPassword"
+                onChange={this.toggleClickStatus}
+              />
+              <label htmlFor="showPassword" onClick={this.toggleClickStatus}>
+                Show Passwords
+              </label>
+            </div>
+            {LENGTH > 0 ? (
+              <ul>{this.renderNewComment()}</ul>
+            ) : (
+              <div className="no-password-image-container">
+                <img
+                  src="https://assets.ccbp.in/frontend/react-js/no-passwords-img.png"
+                  alt="no passwords"
+                  className="no-password-image"
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     )
