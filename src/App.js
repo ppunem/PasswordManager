@@ -11,6 +11,7 @@ class App extends Component {
     website: '',
     password: '',
     isClicked: false,
+    searchInput: '',
   }
 
   addNewPassword = event => {
@@ -71,7 +72,7 @@ class App extends Component {
           <p className="details-styling">{eachPassword.websiteName}</p>
           <p className="details-styling">{eachPassword.userName}</p>
           <p className="details-styling">
-            {isClicked ? (
+            {!isClicked ? (
               <img
                 className="stars-image"
                 src="https://assets.ccbp.in/frontend/react-js/password-manager-stars-img.png "
@@ -103,11 +104,20 @@ class App extends Component {
     const filteredList = newPasswordList.filter(each =>
       each.userName.toLowerCase().includes(event.target.value.toLowerCase()),
     )
-    this.setState({newPasswordList: filteredList})
+    this.setState({
+      newPasswordList: filteredList,
+      searchInput: event.target.value,
+    })
   }
 
   render() {
-    const {newPasswordList} = this.state
+    const {
+      newPasswordList,
+      username,
+      website,
+      password,
+      searchInput,
+    } = this.state
     const LENGTH = newPasswordList.length
 
     return (
@@ -132,6 +142,7 @@ class App extends Component {
                 <input
                   type="text"
                   placeholder="Enter Website"
+                  value={website}
                   onChange={this.changeWebsiteName}
                 />
               </div>
@@ -146,6 +157,7 @@ class App extends Component {
                 <input
                   type="text"
                   placeholder="Enter Username"
+                  value={username}
                   onChange={this.changeUsername}
                 />
               </div>
@@ -160,6 +172,7 @@ class App extends Component {
                 <input
                   type="password"
                   placeholder="Enter Password"
+                  value={password}
                   onChange={this.changePassword}
                 />
               </div>
@@ -192,6 +205,7 @@ class App extends Component {
                   className="search"
                   type="search"
                   placeholder="Search"
+                  value={searchInput}
                   onChange={this.filterPasswords}
                 />
               </div>
@@ -217,6 +231,7 @@ class App extends Component {
                   alt="no passwords"
                   className="no-password-image"
                 />
+                <p className="no-password-text">No Passwords</p>
               </div>
             )}
           </div>

@@ -217,12 +217,19 @@ ul {
 }
 .no-password-image-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .no-password-image {
   height: 200px;
   width: 200px;
+}
+.no-password-text {
+  color: #f8fafc;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }
 .stars-image {
   width: 150px;
